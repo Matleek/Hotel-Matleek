@@ -147,71 +147,97 @@
             color: #ccc;
         }
 
-        /* قسم الغرف (Grid) */
+        /* قسم الغرف المطور */
         .rooms-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
             margin-top: 20px;
         }
         .room-card {
-            background: #1a1d24;
-            border-radius: 12px;
+            background: #16191f;
+            border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-            transition: 0.3s;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            border: 1px solid #232731;
+            display: flex;
+            flex-direction: column;
         }
         .room-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(255, 221, 0, 0.15);
+            border-color: #ffdd00;
         }
-        .room-img {
+        .room-video-container {
             width: 100%;
-            height: 220px;
-            background-color: #333;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #666;
-            font-size: 14px;
+            height: 360px;
+            position: relative;
+            background: #000;
+        }
+        .room-video-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
         }
         .room-info {
-            padding: 20px;
+            padding: 22px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
         }
         .room-info h3 {
-            font-size: 22px;
-            margin-bottom: 10px;
+            font-size: 20px;
+            margin-bottom: 8px;
             color: #fff;
+            font-weight: bold;
         }
         .room-info p {
-            color: #aaa;
-            font-size: 15px;
+            color: #b3b3b3;
+            font-size: 14px;
             margin-bottom: 15px;
+            flex-grow: 1;
         }
         .room-amenities {
             display: flex;
-            gap: 15px;
-            font-size: 14px;
+            flex-wrap: wrap;
+            gap: 10px;
+            font-size: 13px;
             color: #ffdd00;
             margin-bottom: 20px;
+            padding-top: 10px;
+            border-top: 1px solid #232731;
+        }
+        .room-amenities span {
+            background: rgba(255, 221, 0, 0.1);
+            padding: 4px 10px;
+            border-radius: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
         }
         .room-action {
             display: flex;
-            justify-content: flex-end;
-            align-items: center;
+            justify-content: stretch;
         }
         .btn-room-details {
+            width: 100%;
+            text-align: center;
             background-color: transparent;
             color: #ffdd00;
             border: 1px solid #ffdd00;
-            padding: 8px 18px;
+            padding: 10px 18px;
             font-size: 14px;
+            font-weight: bold;
             text-decoration: none;
-            border-radius: 20px;
-            transition: 0.3s;
+            border-radius: 25px;
+            transition: all 0.3s ease;
         }
         .btn-room-details:hover {
             background-color: #ffdd00;
             color: #000;
+            box-shadow: 0 4px 12px rgba(255, 221, 0, 0.3);
         }
 
         /* قسم آراء العملاء */
@@ -256,6 +282,7 @@
             h1 { font-size: 32px; }
             .section-title { font-size: 26px; }
             .hero { height: 90vh; }
+            .room-video-container { height: 320px; }
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -263,7 +290,7 @@
 <body>
 
     <div class="hero">
-        <video autoplay muted loop id="bg-video">
+        <video autoplay muted loop id="bg-video" playsinline>
             <source src="VID-20260531-WA0000.mp4" type="video/mp4">
         </video>
 
@@ -278,11 +305,14 @@
             </a>
 
             <div class="social-icons">
-                <a href="https://www.facebook.com/share/1YWGSWT3BM/?mibextid=wwXIfr" target="_blank"><i class="fab fa-facebook"></i></a>
-                <a href="https://www.instagram.com/hotel_matleek" target="_blank"><i class="fab fa-instagram"></i></a>
-                <a href="https://www.tiktok.com/@.hotel.matleek" target="_blank"><i class="fab fa-tiktok"></i></a>
-                <a href="https://wa.me/9647767709090" target="_blank"><i class="fab fa-whatsapp"></i></a>
-                <a href="https://waze.com/ul/htn262tntr" target="_blank"><i class="fas fa-map-marker-alt"></i></a>
+                <a href="https://www.facebook.com/share/1YWGSWT3BM/?mibextid=wwXIfr" target="_blank" title="Facebook"><i class="fab fa-facebook"></i></a>
+                <a href="https://www.instagram.com/hotel_matleek" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.tiktok.com/@.hotel.matleek" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
+                <a href="https://wa.me/9647767709090" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                <!-- أداة خرائط جوجل بنفس موقع ويز -->
+                <a href="https://maps.google.com/?q=Hotel+Matleek+Sulaymaniyah" target="_blank" title="Google Maps"><i class="fas fa-map-marked-alt"></i></a>
+                <!-- أداة ويز الأصلية -->
+                <a href="https://waze.com/ul/htn262tntr" target="_blank" title="Waze"><i class="fab fa-waze" style="font-family: 'Font Awesome 6 Brands';"></i></a>
             </div>
         </div>
     </div>
@@ -296,41 +326,90 @@
             </p>
         </section>
 
+        <!-- قسم غرفنا المطور والجاهز بنجاح -->
         <section id="rooms">
-            <h2 class="section-title">غرفنا</h2>
+            <h2 class="section-title">غرفنا وأجنحتنا</h2>
             <div class="rooms-grid">
                 
+                <!-- الغرفة 1 -->
                 <div class="room-card">
-                    <div class="room-img">
-                        <i class="fas fa-bed fa-2x"></i> 
+                    <div class="room-video-container">
+                        <video controls muted autoplay loop playsinline>
+                            <source src="room1.mp4" type="video/mp4">
+                        </video>
                     </div>
                     <div class="room-info">
-                        <h3>غرفة قياسية (Standard)</h3>
-                        <p>مناسبة لشخص أو شخصين، تتميز بإطلالة جميلة وتصميم مريح يضمن لك إقامة هادئة.</p>
+                        <h3>غرفة قياسية مريحة</h3>
+                        <p>تتميز بتصميم عصري وأثاث مريح يضمن لك ليلة هادئة وإقامة مميزة لشخص أو شخصين.</p>
                         <div class="room-amenities">
-                            <span><i class="fas fa-wifi"></i> واي فاي مجاني</span> | 
-                            <span><i class="fas fa-snowflake"></i> تكييف ممتاز</span>
+                            <span><i class="fas fa-wifi"></i> واي فاي</span>
+                            <span><i class="fas fa-snowflake"></i> تكييف</span>
                         </div>
                         <div class="room-action">
-                            <a href="https://wa.me/9647767709090?text=مرحبا،%20أود%20معرفة%20تفاصيل%20الغرفة%20القياسية" target="_blank" class="btn-room-details">استفسار وحجز ←</a>
+                            <a href="https://wa.me/9647767709090?text=مرحبا،%20أود%20الاستفسار%20عن%20الغرفة%20القياسية" target="_blank" class="btn-room-details">استفسار وحجز ←</a>
                         </div>
                     </div>
                 </div>
 
+                <!-- الغرفة 2 -->
                 <div class="room-card">
-                    <div class="room-img">
-                        <i class="fas fa-hotel fa-2x"></i>
+                    <div class="room-video-container">
+                        <video controls muted autoplay loop playsinline>
+                            <source src="room2.mp4" type="video/mp4">
+                        </video>
                     </div>
                     <div class="room-info">
-                        <h3>غرفة فاخرة (Deluxe)</h3>
-                        <p>مساحة أوسع مع خدمات متكاملة وإطلالة مباشرة على الطبيعة الخلابة لمنطقة سرجنار.</p>
+                        <h3>غرفة فاخرة متكاملة</h3>
+                        <p>تضم حماماً فاخراً متكامل الخدمات مجهزاً بأحدث التجهيزات مع مساحة واسعة ومريحة.</p>
                         <div class="room-amenities">
-                            <span><i class="fas fa-wifi"></i> واي فاي مجاني</span> | 
-                            <span><i class="fas fa-snowflake"></i> تكييف</span> | 
-                            <span><i class="fas fa-tv"></i> شاشة ذكية</span>
+                            <span><i class="fas fa-shower"></i> حمام فاخر</span>
+                            <span><i class="fas fa-wifi"></i> واي فاي</span>
+                            <span><i class="fas fa-snowflake"></i> تكييف</span>
                         </div>
                         <div class="room-action">
-                            <a href="https://wa.me/9647767709090?text=مرحبا،%20أود%20معرفة%20تفاصيل%20الغرفة%20الفاخرة" target="_blank" class="btn-room-details">استفسار وحجز ←</a>
+                            <a href="https://wa.me/9647767709090?text=مرحبا،%20أود%20الاستفسار%20عن%20الغرفة%20الفاخرة" target="_blank" class="btn-room-details">استفسار وحجز ←</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- الغرفة 3 -->
+                <div class="room-card">
+                    <div class="room-video-container">
+                        <video controls muted autoplay loop playsinline>
+                            <source src="room3.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="room-info">
+                        <h3>جناح ديلوكس الذكي</h3>
+                        <p>إطلالة ساحرة ومباشرة على الطبيعة الخلابة لسرجنار، مزود بشاشات ذكية وجلسة أنيقة.</p>
+                        <div class="room-amenities">
+                            <span><i class="fas fa-tv"></i> شاشة ذكية</span>
+                            <span><i class="fas fa-cloud-sun"></i> إطلالة</span>
+                            <span><i class="fas fa-wifi"></i> واي فاي</span>
+                        </div>
+                        <div class="room-action">
+                            <a href="https://wa.me/9647767709090?text=مرحبا،%20أود%20الاستفسار%20عن%20جناح%20ديلوكس" target="_blank" class="btn-room-details">استفسار وحجز ←</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- الغرفة 4 -->
+                <div class="room-card">
+                    <div class="room-video-container">
+                        <video controls muted autoplay loop playsinline>
+                            <source src="room4.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="room-info">
+                        <h3>الجناح العائلي الملكي</h3>
+                        <p>أجنحة واسعة جداً مخصصة للعوائل، تحتوي على مرافق وخدمات متكاملة لراحة عائلتك.</p>
+                        <div class="room-amenities">
+                            <span><i class="fas fa-users"></i> عائلي واسع</span>
+                            <span><i class="fas fa-concierge-bell"></i> خدمات متكاملة</span>
+                            <span><i class="fas fa-wifi"></i> واي فاي</span>
+                        </div>
+                        <div class="room-action">
+                            <a href="https://wa.me/9647767709090?text=مرحبا،%20أود%20الاستفسار%20عن%20الجناح%20العائلي" target="_blank" class="btn-room-details">استفسار وحجز ←</a>
                         </div>
                     </div>
                 </div>
